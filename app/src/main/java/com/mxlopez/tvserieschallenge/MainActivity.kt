@@ -3,8 +3,13 @@ package com.mxlopez.tvserieschallenge
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mxlopez.tvserieschallenge.adapter.MainListAdapter
 import com.mxlopez.tvserieschallenge.databinding.ActivityMainBinding
 import com.mxlopez.tvserieschallenge.repository.TvMazeApiRepository
@@ -17,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var repository: TvMazeApiRepository
     lateinit var viewModelFactory: SharedViewModelFactory
 
-    lateinit var adapter: MainListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -29,12 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         sharedViewModel.fetchShows(0)
 
-        binding.rvMainList.layoutManager = LinearLayoutManager(this)
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val navController = findNavController(R.id.fragment)
 
-        sharedViewModel.shows.observe(this) {
-            adapter = MainListAdapter(it)
-            binding.rvMainList.adapter = adapter
-        }
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.searchFragment, R.id.favoritesFragment))
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        bottomNavigation.setupWithNavController(navController)
 
     }
 }
