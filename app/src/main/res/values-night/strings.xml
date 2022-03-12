@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search_by_name_label">Insert series name</string>
+    <string name="search_label">Search</string>
+    <string name="favorites_label">Favorites</string>
 </resources>

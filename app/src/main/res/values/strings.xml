@@ -5,4 +5,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home_label">Home</string>
     <string name="search_by_name_label">Insert series name</string>
+    <string name="search_label">Search</string>
+    <string name="favorites_label">Favorites</string>
 </resources>
