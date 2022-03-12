@@ -5,20 +5,46 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mxlopez.tvserieschallenge.models.SearchedShow
 import com.mxlopez.tvserieschallenge.models.Show
 import com.mxlopez.tvserieschallenge.repository.TvMazeApiRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SharedViewModel(private val repository: TvMazeApiRepository): ViewModel() {
-    private val _shows = MutableLiveData<List<Show>>()
-    val shows: LiveData<List<Show>> = _shows
+    private val _shows = MutableLiveData<MutableList<Show>>()
+    private val _searchedShows = MutableLiveData<MutableList<SearchedShow>>()
+    private val _favoriteShows = MutableLiveData<MutableList<Show>>()
+
+    val shows: LiveData<MutableList<Show>> = _shows
+    val searchedShows: LiveData<MutableList<SearchedShow>> = _searchedShows
+    val favoriteShow: LiveData<MutableList<Show>> = _favoriteShows
 
     fun fetchShows(page: Int = 0) {
         viewModelScope.launch {
             val response = repository.getShowsPerPage(page)
-            Log.d("SharedViewModel - fetchShoes", response.body().toString())
+            Log.d("SharedViewModel - fetchShows", response.body().toString())
             _shows.value = response.body()
+        }
+    }
+
+    fun searchShows(name: String = "") {
+        viewModelScope.launch {
+            val response = repository.getShowsByName(name)
+            Log.d("SharedViewModel - searchShows", response.body().toString())
+            _searchedShows.value = response.body()
+        }
+    }
+
+    fun addToFavorites(show: Show) {
+        viewModelScope.launch {
+            _favoriteShows.value!!.add(show)
+        }
+    }
+
+    fun removeFromFavorites(show: Show) {
+        viewModelScope.launch {
+            _favoriteShows.value!!.remove(show)
         }
     }
 }

@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.mxlopez.tvserieschallenge.adapter.MainListAdapter
 import com.mxlopez.tvserieschallenge.databinding.FragmentHomeBinding
 import com.mxlopez.tvserieschallenge.repository.TvMazeApiRepository
 import com.mxlopez.tvserieschallenge.viewmodels.SharedViewModel
@@ -16,6 +19,7 @@ import com.mxlopez.tvserieschallenge.viewmodels.SharedViewModelFactory
 class HomeFragment : Fragment() {
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var adapter: MainListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -27,11 +31,15 @@ class HomeFragment : Fragment() {
         val repository = TvMazeApiRepository()
         val factory = SharedViewModelFactory(repository)
         sharedViewModel = ViewModelProvider(requireActivity(), factory).get(SharedViewModel::class.java)
-        binding = FragmentHomeBinding.inflate(inflater)
-        val view = binding.root
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        sharedViewModel.shows.observe(viewLifecycleOwner) {
+            adapter = MainListAdapter(it)
+            binding.rvMainList.layoutManager = LinearLayoutManager(context)
+            binding.rvMainList.adapter = adapter
+        }
 
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return binding.root
     }
 
     companion object {
