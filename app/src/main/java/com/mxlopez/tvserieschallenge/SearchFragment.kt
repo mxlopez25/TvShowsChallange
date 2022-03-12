@@ -6,6 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.mxlopez.tvserieschallenge.adapter.MainListAdapter
+import com.mxlopez.tvserieschallenge.adapter.SearchListAdapter
+import com.mxlopez.tvserieschallenge.databinding.FragmentHomeBinding
+import com.mxlopez.tvserieschallenge.databinding.FragmentSearchBinding
 import com.mxlopez.tvserieschallenge.repository.TvMazeApiRepository
 import com.mxlopez.tvserieschallenge.viewmodels.SharedViewModel
 import com.mxlopez.tvserieschallenge.viewmodels.SharedViewModelFactory
@@ -14,6 +19,9 @@ class SearchFragment : Fragment() {
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var repository: TvMazeApiRepository
     private lateinit var sharedViewModelFactory: SharedViewModelFactory
+    private lateinit var binding: FragmentSearchBinding
+
+    private lateinit var adapter: SearchListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,13 +31,23 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_search, container, false)
+        binding = FragmentSearchBinding.inflate(inflater, container, false)
 
         repository = TvMazeApiRepository()
         sharedViewModelFactory = SharedViewModelFactory(repository)
         sharedViewModel = ViewModelProvider(requireActivity(), sharedViewModelFactory).get(SharedViewModel::class.java)
 
-        return v
+        binding.btnSearchShows.setOnClickListener {
+            sharedViewModel.searchShows(binding.etSearch.text.toString())
+        }
+
+        sharedViewModel.searchedShows.observe(viewLifecycleOwner) {
+            adapter = SearchListAdapter(it)
+            binding.rvSearchList.adapter = adapter
+            binding.rvSearchList.layoutManager = LinearLayoutManager(context)
+        }
+
+        return binding.root
     }
 
     companion object {
