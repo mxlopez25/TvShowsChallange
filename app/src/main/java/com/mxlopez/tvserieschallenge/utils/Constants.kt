@@ -5,5 +5,6 @@ class Constants {
         const val BASE_URL = "https://api.tvmaze.com/"
 
         const val SHOWS_URL = "shows"
+        const val SEARCH_SHOWS_URL = "search/shows"
     }
 }
