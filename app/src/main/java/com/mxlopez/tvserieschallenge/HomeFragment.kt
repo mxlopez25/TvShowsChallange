@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mxlopez.tvserieschallenge.adapter.MainListAdapter
 import com.mxlopez.tvserieschallenge.databinding.FragmentHomeBinding
+import com.mxlopez.tvserieschallenge.models.Show
 import com.mxlopez.tvserieschallenge.repository.TvMazeApiRepository
 import com.mxlopez.tvserieschallenge.viewmodels.SharedViewModel
 import com.mxlopez.tvserieschallenge.viewmodels.SharedViewModelFactory
@@ -22,6 +23,7 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: MainListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -33,8 +35,11 @@ class HomeFragment : Fragment() {
         sharedViewModel = ViewModelProvider(requireActivity(), factory).get(SharedViewModel::class.java)
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        val add: (Show) -> Unit = { s -> sharedViewModel.addToFavorites(s) }
+        val remove: (Show) -> Unit = { s -> sharedViewModel.removeFromFavorites(s) }
+
         sharedViewModel.shows.observe(viewLifecycleOwner) {
-            adapter = MainListAdapter(it)
+            adapter = MainListAdapter(it, sharedViewModel.favoriteShow.value, add, remove)
             binding.rvMainList.layoutManager = LinearLayoutManager(context)
             binding.rvMainList.adapter = adapter
         }
