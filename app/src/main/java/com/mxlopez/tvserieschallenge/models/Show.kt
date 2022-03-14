@@ -13,7 +13,10 @@ data class Show(
     val runtime: Int,
     val averageRuntime: Int,
     val premiered: String? = null,
+    val ended: String? = null,
     @SerializedName("image")
-    val image: ImageModel
+    val image: ImageModel,
+    val summary: String? = null,
+    var seasons: List<Season>? = null
 
 )
