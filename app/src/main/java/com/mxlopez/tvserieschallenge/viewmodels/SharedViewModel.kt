@@ -9,6 +9,7 @@ import com.mxlopez.tvserieschallenge.models.SearchedShow
 import com.mxlopez.tvserieschallenge.models.Show
 import com.mxlopez.tvserieschallenge.repository.TvMazeApiRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class SharedViewModel(private val repository: TvMazeApiRepository): ViewModel() {
@@ -28,6 +29,14 @@ class SharedViewModel(private val repository: TvMazeApiRepository): ViewModel() 
         }
     }
 
+    fun fetchFavorites() {
+        viewModelScope.launch {
+            if(_favoriteShows.value.isNullOrEmpty()) {
+                _favoriteShows.value = mutableListOf()
+            }
+        }
+    }
+
     fun searchShows(name: String = "") {
         viewModelScope.launch {
             val response = repository.getShowsByName(name)
@@ -38,7 +47,11 @@ class SharedViewModel(private val repository: TvMazeApiRepository): ViewModel() 
 
     fun addToFavorites(show: Show) {
         viewModelScope.launch {
-            _favoriteShows.value!!.add(show)
+            if(_favoriteShows.value.isNullOrEmpty()) {
+                _favoriteShows.value = mutableListOf(show)
+            } else {
+                _favoriteShows.value!!.add(show)
+            }
         }
     }
 
@@ -47,4 +60,7 @@ class SharedViewModel(private val repository: TvMazeApiRepository): ViewModel() 
             _favoriteShows.value!!.remove(show)
         }
     }
+
+    val addFavorite: (Show) -> Unit = { s -> viewModelScope.async { _favoriteShows.value!!.add(s) }}
+    val removeFavorite: (Show) -> Unit = { s -> viewModelScope.async { _favoriteShows.value!!.remove(s) } }
 }
