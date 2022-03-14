@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mxlopez.tvserieschallenge.adapter.MainListAdapter
@@ -33,6 +34,7 @@ class FavoritesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = context?.resources?.getString(R.string.favorites_label)
         binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         repository = TvMazeApiRepository()
         sharedViewModelFactory = SharedViewModelFactory(repository)

@@ -7,4 +7,5 @@
     <string name="show_genres_label">Show Genres</string>
     <string name="number_of_seasons_label">Number of Seasons: N/A</string>
     <string name="number_of_episodes_label">Number of Episodes: N/A</string>
+    <string name="episode_name_label">Episode Name</string>
 </resources>
