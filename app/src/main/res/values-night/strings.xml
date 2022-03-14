@@ -5,4 +5,6 @@
     <string name="favorites_label">Favorites</string>
     <string name="series_name_label">Series Name</string>
     <string name="show_genres_label">Show Genres</string>
+    <string name="number_of_seasons_label">Number of Seasons: N/A</string>
+    <string name="number_of_episodes_label">Number of Episodes: N/A</string>
 </resources>

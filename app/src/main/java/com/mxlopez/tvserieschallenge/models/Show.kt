@@ -17,6 +17,7 @@ data class Show(
     @SerializedName("image")
     val image: ImageModel,
     val summary: String? = null,
-    var seasons: List<Season>? = null
+    var seasons: List<Season>? = null,
+    var episode: List<Episode>? = null
 
 )

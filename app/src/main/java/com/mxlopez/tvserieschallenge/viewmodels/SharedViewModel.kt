@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mxlopez.tvserieschallenge.models.SearchedShow
+import com.mxlopez.tvserieschallenge.models.Season
 import com.mxlopez.tvserieschallenge.models.Show
 import com.mxlopez.tvserieschallenge.repository.TvMazeApiRepository
 import kotlinx.coroutines.Dispatchers
