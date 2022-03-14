@@ -10,35 +10,41 @@
         android:id="@+id/tvEpName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Episode Name"
+        android:text="@string/episode_name_label"
         android:textSize="34sp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivEpImage" />
 
     <TextView
         android:id="@+id/tvEpSeason"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Season #"
+        android:layout_marginTop="10dp"
+        android:text="@string/season_n_label"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvEpName" />
 
     <TextView
         android:id="@+id/tvEpNumber"
-        android:layout_width="56dp"
+        android:layout_width="0dp"
         android:layout_height="23dp"
-        android:text="Episode #"
+        android:layout_marginTop="10dp"
+        android:text="@string/episode_n_label"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvEpSeason" />
 
     <TextView
         android:id="@+id/tvEpSummary"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Summary"
+        android:layout_marginTop="10dp"
+        android:text="@string/summary_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvEpNumber" />
@@ -56,7 +62,7 @@
         android:id="@+id/btnOk"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="@string/ok_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

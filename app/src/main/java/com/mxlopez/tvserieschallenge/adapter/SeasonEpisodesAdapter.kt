@@ -25,7 +25,7 @@ class SeasonEpisodesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        val season = seasons[position]
+
         holder.tvSeasonNumber.text = "Season #${seasons[position].number}"
 
         val episodes = episodes.filter { it.season == seasons[position].number }

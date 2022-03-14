@@ -4,7 +4,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home_label">Home</string>
-    <string name="details_label">Details</string>
+    <string name="details_label">Details - %s</string>
     <string name="search_by_name_label">Insert series name</string>
     <string name="search_label">Search</string>
     <string name="favorites_label">Favorites</string>
@@ -14,4 +14,8 @@
     <string name="number_of_episodes_label">Number of Episodes: N/A</string>
     <string name="season_n_a_label">Season N/A</string>
     <string name="episode_name_label">Episode Name</string>
+    <string name="season_n_label">Season #</string>
+    <string name="episode_n_label">Episode #</string>
+    <string name="summary_label">Summary</string>
+    <string name="ok_label">OK</string>
 </resources>

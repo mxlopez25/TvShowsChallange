@@ -31,9 +31,12 @@ class EpisodeDetailsActivity : AppCompatActivity() {
 
         val epSeason = bundle?.getString(Constants.EP_SEASON)?.let { "Season $it" }
         val epNumber = bundle?.getString(Constants.EP_NUMBER)?.let {"Episode $it"}
+        val epName = bundle?.getString(Constants.EP_NAME)?.let { "Details $it" }
+
+        supportActionBar!!.title = String.format(resources.getString(R.string.details_label), epName)
 
         if(bundle != null) {
-            tvEpName.text = bundle.getString(Constants.EP_NAME)
+            tvEpName.text = epName
             tvEpSummary.text =
                 bundle.getString(Constants.EP_SUMMARY)
                     ?.let { HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY).toString() }

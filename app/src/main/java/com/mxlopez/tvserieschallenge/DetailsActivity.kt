@@ -35,7 +35,7 @@ class DetailsActivity : AppCompatActivity() {
         binding.tvShowSummary.text =
             show?.summary?.let { HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY).toString() }
 
-        supportActionBar!!.title = resources.getString(R.string.details_label)
+        supportActionBar!!.title = String.format(resources.getString(R.string.details_label), show.name)
 
         val repo = TvMazeApiRepository()
         val r = CoroutineScope(Dispatchers.IO).launch {
