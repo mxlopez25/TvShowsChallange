@@ -17,6 +17,7 @@ import coil.api.load
 import com.mxlopez.tvserieschallenge.DetailsActivity
 import com.mxlopez.tvserieschallenge.R
 import com.mxlopez.tvserieschallenge.models.Show
+import com.mxlopez.tvserieschallenge.utils.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,6 +50,7 @@ class MainListAdapter(
 
         holder.cellBody.setOnClickListener {
             val intent = Intent(ctx, DetailsActivity::class.java)
+            Constants.selectedShow = show
             ContextCompat.startActivity(ctx, intent, null)
         }
 
