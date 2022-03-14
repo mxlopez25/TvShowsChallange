@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import com.mxlopez.tvserieschallenge.DetailsActivity
 import com.mxlopez.tvserieschallenge.R
 import com.mxlopez.tvserieschallenge.models.Show
@@ -35,17 +36,20 @@ class MainListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val show = list?.get(position)!!
-        val isFavorite = fav?.find { show.name == it?.name } != null
+        val isFavorite = fav?.find { show.name == it.name } != null
+
         holder.seriesName.text = show.name ?: "N/A"
-        holder.cellBody.setOnClickListener {
-            val intent = Intent(ctx, DetailsActivity::class.java)
-            ContextCompat.startActivity(ctx, intent, null)
-        }
+        holder.seriesImage.load(show.image.medium)
 
         if (isFavorite) {
             holder.favButton.setImageResource(R.drawable.ic_baseline_star_24)
         } else {
             holder.favButton.setImageResource(R.drawable.ic_baseline_star_border_24)
+        }
+
+        holder.cellBody.setOnClickListener {
+            val intent = Intent(ctx, DetailsActivity::class.java)
+            ContextCompat.startActivity(ctx, intent, null)
         }
 
         holder.favButton.setOnClickListener {
