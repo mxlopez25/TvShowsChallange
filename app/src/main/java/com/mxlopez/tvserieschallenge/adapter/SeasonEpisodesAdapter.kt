@@ -17,26 +17,27 @@ class SeasonEpisodesAdapter(
     val episodes: MutableList<Episode>
 ) : RecyclerView.Adapter<SeasonEpisodesAdapter.ViewHolder>() {
     private lateinit var episodeAdapter: EpisodeAdapter
+    private lateinit var ctx: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(context).inflate(R.layout.season_episodes_cell, parent, false)
-
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.season_episodes_cell, parent, false)
+        ctx = parent.context
         return ViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val season = seasons[position]
-        holder.tvSeasonNumber.text = "Season #${season.number}"
+//        val season = seasons[position]
+        holder.tvSeasonNumber.text = "Season #${seasons[position].number}"
 
-        val episodes = episodes.filter { it.season == season.number }
+        val episodes = episodes.filter { it.season == seasons[position].number }
 
-        episodeAdapter = EpisodeAdapter(context, episodes)
-        holder.rvEpisodes.layoutManager = LinearLayoutManager(context)
+        episodeAdapter = EpisodeAdapter(ctx, episodes)
+        holder.rvEpisodes.layoutManager = LinearLayoutManager(ctx)
         holder.rvEpisodes.adapter = episodeAdapter
 
     }
 
     override fun getItemCount(): Int {
-        return episodes.size
+        return seasons.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

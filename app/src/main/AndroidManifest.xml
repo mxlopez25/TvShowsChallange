@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TvSeriesChallenge">
         <activity
+            android:name=".EpisodeDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailsActivity"
             android:exported="false" />
         <activity

@@ -17,10 +17,28 @@ class SharedViewModel(private val repository: TvMazeApiRepository): ViewModel() 
     private val _shows = MutableLiveData<MutableList<Show>>()
     private val _searchedShows = MutableLiveData<MutableList<SearchedShow>>()
     private val _favoriteShows = MutableLiveData<MutableList<Show>>()
+    private val _currentPage = MutableLiveData<Int>(0)
 
     val shows: LiveData<MutableList<Show>> = _shows
     val searchedShows: LiveData<MutableList<SearchedShow>> = _searchedShows
     val favoriteShow: LiveData<MutableList<Show>> = _favoriteShows
+    val curentPage: LiveData<Int> = _currentPage
+
+    fun nextPage() {
+        viewModelScope.launch {
+            _currentPage.value =  _currentPage.value?.plus(1)
+            fetchShows(_currentPage.value!!)
+        }
+    }
+
+    fun previousPage() {
+        viewModelScope.launch {
+            if(_currentPage.value!! > 0) {
+                _currentPage.value = _currentPage.value?.minus(1)
+                fetchShows(_currentPage.value!!)
+            }
+        }
+    }
 
     fun fetchShows(page: Int = 0) {
         viewModelScope.launch {

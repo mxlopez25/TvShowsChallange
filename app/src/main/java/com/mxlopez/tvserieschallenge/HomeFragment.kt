@@ -45,6 +45,19 @@ class HomeFragment : Fragment() {
             binding.rvMainList.adapter = adapter
         }
 
+        binding.btnNextPage.setOnClickListener {
+            sharedViewModel.nextPage()
+        }
+
+        binding.btnPrevPage.setOnClickListener {
+            sharedViewModel.previousPage()
+        }
+
+        sharedViewModel.curentPage.observe(viewLifecycleOwner) {
+            binding.btnPrevPage.isEnabled = sharedViewModel.curentPage.value!! > 0
+            binding.tvPageNumber.text = sharedViewModel.curentPage.value!!.plus(1).toString()
+        }
+
         return binding.root
     }
 
