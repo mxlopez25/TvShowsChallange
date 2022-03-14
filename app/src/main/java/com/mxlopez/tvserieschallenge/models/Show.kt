@@ -1,5 +1,7 @@
 package com.mxlopez.tvserieschallenge.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Show(
     val id: Int,
     val url: String? = null,
@@ -10,6 +12,8 @@ data class Show(
     val status: String? = null,
     val runtime: Int,
     val averageRuntime: Int,
-    val premiered: String? = null
+    val premiered: String? = null,
+    @SerializedName("image")
+    val image: ImageModel
 
 )
