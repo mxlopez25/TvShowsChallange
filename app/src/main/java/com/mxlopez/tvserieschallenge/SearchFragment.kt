@@ -44,7 +44,12 @@ class SearchFragment : Fragment() {
         }
 
         sharedViewModel.searchedShows.observe(viewLifecycleOwner) {
-            adapter = SearchListAdapter(it)
+            adapter = SearchListAdapter(
+                it,
+                sharedViewModel.favoriteShow.value,
+                sharedViewModel.addFavorite,
+                sharedViewModel.removeFavorite
+            )
             binding.rvSearchList.adapter = adapter
             binding.rvSearchList.layoutManager = LinearLayoutManager(context)
         }
