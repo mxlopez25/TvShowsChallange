@@ -38,7 +38,7 @@ class DetailsActivity : AppCompatActivity() {
         supportActionBar!!.title = String.format(resources.getString(R.string.details_label), show.name)
 
         val repo = TvMazeApiRepository()
-        val r = CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
             val seasons = async { repo.getShowSeasons(show.id.toString()) }
             val episodes = async { repo.getShowEpisodes(show.id.toString()) }
             seasonList = seasons.await().body()!!
@@ -47,9 +47,9 @@ class DetailsActivity : AppCompatActivity() {
             seasonsUpdate()
         }
 
-        CoroutineScope(Dispatchers.IO).launch {
-            r.join()
-        }
+//        CoroutineScope(Dispatchers.IO).launch {
+//            r.join()
+//        }
     }
 
     suspend fun seasonsUpdate() {
